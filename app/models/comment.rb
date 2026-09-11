@@ -66,6 +66,20 @@ class Comment < ApplicationRecord
         valuation: valuation)
   end
 
+  def self.commentable_open?(commentable, user)
+    return true if user.administrator? || user.moderator?
+
+    !(commentable.respond_to?(:comments_closed?) && commentable.comments_closed?)
+  end
+
+  def self.resident_verification_required?(commentable, user)
+    return false if user.administrator? || user.moderator?
+
+    commentable.respond_to?(:comments_for_verified_residents_only?) &&
+      commentable.comments_for_verified_residents_only? &&
+      !user.residence_verified?
+  end
+
   def self.find_commentable(c_type, c_id)
     c_type.constantize.find(c_id)
   end

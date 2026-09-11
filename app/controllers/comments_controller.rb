@@ -87,18 +87,11 @@ class CommentsController < ApplicationController
     end
 
     def verify_resident_for_commentable!
-      return if current_user.administrator? || current_user.moderator?
-
-      if @commentable.respond_to?(:comments_for_verified_residents_only?) &&
-         @commentable.comments_for_verified_residents_only?
-        verify_resident!
-      end
+      verify_resident! if Comment.resident_verification_required?(@commentable, current_user)
     end
 
     def verify_comments_open!
-      return if current_user.administrator? || current_user.moderator?
-
-      if @commentable.respond_to?(:comments_closed?) && @commentable.comments_closed?
+      unless Comment.commentable_open?(@commentable, current_user)
         redirect_to polymorphic_path(@commentable), alert: t("comments.comments_closed")
       end
     end

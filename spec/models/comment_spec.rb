@@ -29,6 +29,53 @@ describe Comment do
     expect(debate.reload.comments_count).to eq(1)
   end
 
+  describe ".commentable_open?" do
+    it "is true for a commentable that doesn't respond to comments_closed?" do
+      expect(Comment.commentable_open?(create(:proposal), create(:user))).to be true
+    end
+
+    it "is false when the commentable is closed for comments" do
+      question = create(:legislation_question)
+      allow(question).to receive(:comments_closed?).and_return(true)
+
+      expect(Comment.commentable_open?(question, create(:user))).to be false
+    end
+
+    it "is true for administrators and moderators even when the commentable is closed" do
+      question = create(:legislation_question)
+      allow(question).to receive(:comments_closed?).and_return(true)
+
+      expect(Comment.commentable_open?(question, create(:administrator).user)).to be true
+      expect(Comment.commentable_open?(question, create(:moderator).user)).to be true
+    end
+  end
+
+  describe ".resident_verification_required?" do
+    it "is false for a commentable that doesn't restrict to verified residents" do
+      expect(Comment.resident_verification_required?(create(:proposal), create(:user))).to be false
+    end
+
+    it "is true when the commentable requires it and the user isn't a verified resident" do
+      question = create(:legislation_question)
+
+      expect(Comment.resident_verification_required?(question, create(:user))).to be true
+    end
+
+    it "is false when the user is already a verified resident" do
+      question = create(:legislation_question)
+      user = create(:user, :level_two)
+
+      expect(Comment.resident_verification_required?(question, user)).to be false
+    end
+
+    it "is false for administrators and moderators even when the commentable requires it" do
+      question = create(:legislation_question)
+
+      expect(Comment.resident_verification_required?(question, create(:administrator).user)).to be false
+      expect(Comment.resident_verification_required?(question, create(:moderator).user)).to be false
+    end
+  end
+
   describe "#as_administrator?" do
     it "is true if comment has administrator_id, false otherway" do
       expect(comment).not_to be_as_administrator

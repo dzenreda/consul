@@ -7,5 +7,6 @@ namespace :api do
 
   resources :proposals, only: [:index, :show, :create, :update] do
     post :vote, on: :member
+    resources :comments, only: [:create]
   end
 end

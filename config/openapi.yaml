@@ -218,6 +218,58 @@ paths:
         "401":
           description: Authentication required.
 
+  /proposals/{proposal_id}/comments:
+    post:
+      summary: Comment on a proposal
+      description: >
+        May be blocked with 403 if the proposal requires verified residents and the
+        current user isn't one, or if comments are closed for it (neither restriction
+        currently applies to proposals, but the check is shared with other commentable
+        types such as legislation questions).
+      tags: [Comments]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: proposal_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+                parent_id:
+                  type: integer
+                  description: Set to reply to another comment.
+      responses:
+        "201":
+          description: Comment created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "401":
+          description: Authentication required.
+        "403":
+          description: Residence verification required, or comments are closed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Validation errors (e.g. empty body).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
 components:
   securitySchemes:
     bearerAuth:
@@ -309,6 +361,16 @@ components:
           type: string
           format: date-time
           description: Truncated to the hour, for privacy.
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+        body:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     Error:
       type: object
       properties:
