@@ -9,14 +9,13 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable, :password_expirable, :secure_validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist,
          authentication_keys: [:login]
   devise :lockable if Rails.application.config.devise_lockable
 
   acts_as_voter
   acts_as_paranoid column: :hidden_at
   include ActsAsParanoidAliases
-
-  include Graphqlable
 
   has_one :administrator
   has_one :moderator

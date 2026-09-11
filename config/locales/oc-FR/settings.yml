@@ -122,7 +122,7 @@ oc:
       remote_census_description: "Permet configurar la connexion amb lo cens remot de cada institucion"
       valuation_comment_notification: "Notificacion de comentaris d'avaloracion"
       valuation_comment_notification_description: "Enviatz un corrièr electronic a totes los usatgièrs associats, a l'excepcion del comentarista d'avaloracion, a l'inversion budgetària quand se crei un nòu comentari d'avaloracion"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Corrièr electronic de notificacion del tauler"
         notification_emails_description: "Abilitatz enviar de corrièrs electronics de notificacion de tauler als autors de la proposicion"

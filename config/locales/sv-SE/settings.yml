@@ -130,7 +130,7 @@ sv:
       remote_census_description: "Tillåter konfiguration av anslutningen till fjärradressregistret för varje institution"
       valuation_comment_notification: "Avisering om bedömningskommentar"
       valuation_comment_notification_description: "Skicka e-post till alla berörda användare, utom den som gör kommentaren till budgetinvesteringen, när en ny kostnadsberäkningskommentar skapas"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Dashboard för e-postaviseringar"
         notification_emails_description: "Aktivera skickande av dashboard-aviseringar via e-post till förslagslämnare"

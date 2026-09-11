@@ -1,6 +1,4 @@
 class Geozone < ApplicationRecord
-  include Graphqlable
-
   attribute :color, default: "#0000ff"
 
   has_many :proposals

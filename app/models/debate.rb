@@ -6,7 +6,6 @@ class Debate < ApplicationRecord
   include Searchable
   include Filterable
   include HasPublicAuthor
-  include Graphqlable
   include Relationable
   include Notifiable
   include Randomizable

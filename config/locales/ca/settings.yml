@@ -122,7 +122,7 @@ ca:
       remote_census_description: "Permet configurar la connexió amb el cens remot de cada institució"
       valuation_comment_notification: "Notificació de comentaris de valoració"
       valuation_comment_notification_description: "Envieu un correu electrònic a tots els usuaris associats, excepte el comentarista de valoració, a la inversió pressupostària quan es crei un nou comentari de valoració"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Correu electrònic de notificació del tauler"
         notification_emails_description: "Habiliteu enviar correus electrònics de notificació de tauler als autors de la proposta"

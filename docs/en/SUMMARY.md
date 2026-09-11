@@ -45,7 +45,6 @@
 
 * [Technical Features](features/features.md)
   * [Authentication with external services (OAuth)](features/oauth.md)
-  * [GraphQL](features/graphql.md)
   * [Debates and proposals recommendations](features/recommendations.md)
   * [Configure Census Connection](features/census_configuration.md)
   * [Local Census](features/local_census.md)

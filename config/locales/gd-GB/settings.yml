@@ -126,7 +126,7 @@ gd:
       remote_census_description: "Ceadaichidh seo a bhith a’ rèiteachadh a’ cheangal ri cunntas-sluaigh gach institiud"
       valuation_comment_notification: "Brath mu bheachd luachaidh"
       valuation_comment_notification_description: "Cuir post-d chun a h-uile cleachdaiche co-cheangailte ri seo ach a-mhàin neach-luachaidh air tasgadh buidseit nuair a thèid beachd luachaidh ùr a chruthachadh"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Brathan puist-d an deas-bhùird "
         notification_emails_description: "Cuir an comas a bhith a’ cur brathan puist-d deas-bhòrd gu ùghdaran a’ mholaidh"

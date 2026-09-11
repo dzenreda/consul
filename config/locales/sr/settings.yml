@@ -122,7 +122,7 @@ sr:
       remote_census_description: "Омогућава подешавање везе ка удаљеном попису сваке институције"
       valuation_comment_notification: "Обавештење о коментару за оцењивање"
       valuation_comment_notification_description: "Слање електронске поште свим повезаним корисницима изузев оцењивачу за буџетско инвестирање када се креира нови оцењивачки коментар"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Обавештења електронском поштом на главној табли"
         notification_emails_description: "Омогућава слање обавештења електронском поштом на главној табли ауторима предлога"

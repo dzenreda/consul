@@ -127,7 +127,7 @@ cs:
       remote_census_description: "Umožňuje konfigurovat připojení ke vzdálenému registru občanů každé instituce"
       valuation_comment_notification: "Oznámení o připomínkách k hodnocení"
       valuation_comment_notification_description: "Odeslat e-mail všem přidruženým uživatelům kromě komentátora ocenění do rozpočtu investic, když je vytvořen nový komentář k ocenění"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "E-maily s upozorněním na ovládacím panelu"
         notification_emails_description: "Povolit zasílání e-mailů s upozorněním na ovládací panel autorům návrhu"

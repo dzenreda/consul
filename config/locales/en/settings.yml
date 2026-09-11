@@ -130,7 +130,7 @@ en:
       remote_census_description: "Allows to configure the connection to the remote census of each institution"
       valuation_comment_notification: "Valuation comment notification"
       valuation_comment_notification_description: "Send an email to all associated users except valuation commenter to budget investment when a new valuation comment is created"
-      graphql_api: "GraphQL API"
+      api: "API"
       dashboard:
         notification_emails: "Dashboard notification emails"
         notification_emails_description: "Enable sending dashboard notification emails to proposal's authors"

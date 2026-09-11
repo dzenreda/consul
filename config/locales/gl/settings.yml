@@ -126,7 +126,7 @@ gl:
       remote_census_description: "Permite configurar a conexión ao censo remoto de cada institución"
       valuation_comment_notification: "Notificación de comentarios de valoración"
       valuation_comment_notification_description: "Envía unha mensaxe de correo a todos os usuarios, agás a quen tivera comentarios relacionados co orzamento participativo cando se crea un novo comentario de valoración"
-      graphql_api: "API GraphQL"
+      api: "API GraphQL"
       dashboard:
         notification_emails: "Mensaxes de notificación do panel de control"
         notification_emails_description: "Activa o envío de mensaxes de notificación aos autores das propostas"

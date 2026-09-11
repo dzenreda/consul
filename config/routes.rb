@@ -13,13 +13,13 @@ Rails.application.routes.draw do
   end
 
   constraints lambda { |request| !Rails.application.multitenancy_management_mode? } do
+    draw :api
     draw :budget
     draw :comment
     draw :community
     draw :debate
     draw :direct_upload
     draw :document
-    draw :graphql
     draw :legislation
     draw :management
     draw :moderation

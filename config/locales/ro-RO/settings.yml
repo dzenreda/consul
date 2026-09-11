@@ -122,7 +122,7 @@ ro:
       remote_census_description: "Permite configurarea conexiunii la recensământul de la distanță al fiecărei instituții"
       valuation_comment_notification: "Valuation comment notification"
       valuation_comment_notification_description: "Send an email to all associated users except valuation commenter to budget investment when a new valuation comment is created"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Panoul cu privire la notificarile trimise prin email"
         notification_emails_description: "Permite trimitea de notificari pe email catre autorii propunerilor"

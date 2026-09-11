@@ -6,7 +6,6 @@ class Proposal < ApplicationRecord
   include Searchable
   include Filterable
   include HasPublicAuthor
-  include Graphqlable
   include Followable
   include Communitable
   include Imageable
@@ -105,6 +104,10 @@ class Proposal < ApplicationRecord
 
   def self.create_for(author, attributes)
     create(attributes.merge(author: author))
+  end
+
+  def public_created_at
+    created_at.change(min: 0)
   end
 
   def self.recommendations(user)

@@ -122,7 +122,7 @@ pt-BR:
       remote_census_description: "Permite configurar a conexão ao censo remoto de cada instituição"
       valuation_comment_notification: "Notificação de comentários de avaliação"
       valuation_comment_notification_description: "Envia um email a todos os usuários, exceto a quem tiver comentários associados a um orçamento participativo quando se crie um novo comentário de avaliação"
-      graphql_api: "API GraphQL"
+      api: "API GraphQL"
       dashboard:
         notification_emails: "Emails de notificações do painel de progresso"
         notification_emails_description: "Ativar o envio de emails de notificações aos autores das propostas na seção do painel de progresso"

@@ -130,7 +130,7 @@ el:
       remote_census_description: "Επιτρέπει τη διαμόρφωση της σύνδεσης στην απομακρυσμένη απογραφή κάθε θεσμού"
       valuation_comment_notification: "Ειδοποίηση νέου σχόλιου αποτίμησης"
       valuation_comment_notification_description: "Αποστολή E-mail σε όλους τους συναφείς χρήστες για κάθε νέο σχόλιο αποτίμησης στις επενδύσεις προϋπολογισμού, εκτός του χρήστη ο οποίος δημιούργησε το σχόλιο"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "E-mail ειδοποιήσεων πίνακα ελέγχου"
         notification_emails_description: "Ενεργοποίηση αποστολής E-mail ειδοποιήσεων πίνακα ελέγχου στους συντάκτες της πρότασης"

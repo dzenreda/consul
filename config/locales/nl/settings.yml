@@ -128,7 +128,7 @@ nl:
       remote_census_description: "Geeft de mogelijkheid de verbinding met de remote census te configureren"
       valuation_comment_notification: "Notificatie beoordelingsreactie"
       valuation_comment_notification_description: "Stuur een e-mail naar alle betrokken gebruikers bij het begrotingsvoorstel wanneer een nieuwe beoordelingsreactie is aangemaakt"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Notificatie-emails controlepaneel"
         notification_emails_description: "Activeer verzenden van controlepaneelnotificaties naar schrijvers voorstellen"

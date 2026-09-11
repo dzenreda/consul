@@ -130,7 +130,7 @@ tr:
       remote_census_description: "Her kurumun uzak seçmen bilgi sistemi bağlantısını yapılandırmasını sağlar"
       valuation_comment_notification: "Değerlendirme yorumu bildirimi"
       valuation_comment_notification_description: "Yeni bir değerlendirme yorumu yapıldığında, bütçe yatırımı değerlendirme yorumlayıcısı dışındaki tüm ilgili kullanıcılara bir e-posta gönderilir"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Pano bildirimi e-postaları"
         notification_emails_description: "Pano bildirimi e-postaları önerge sahiplerine gönderilsin"

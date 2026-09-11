@@ -122,7 +122,7 @@ bg:
       remote_census_description: "Позволява да се конфигурира връзката към дистанционното преброяване на всяка институция"
       valuation_comment_notification: "Уведомяване за коментар за оценка"
       valuation_comment_notification_description: "Изпратете имейл до всички свързани потребители, с изключение на коментиращия оценката към бюджетна инвестиция, когато се създаде нов коментар за оценка"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Имейли за известия на таблото за управление"
         notification_emails_description: "Активирайте изпращането на имейл съобщения на таблото за управление до авторите на предложението"

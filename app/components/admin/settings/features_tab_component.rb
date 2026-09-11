@@ -22,7 +22,7 @@ class Admin::Settings::FeaturesTabComponent < ApplicationComponent
       feature.translation_interface
       feature.remote_census
       feature.valuation_comment_notification
-      feature.graphql_api
+      feature.api
       feature.sdg
       feature.machine_learning
       feature.remove_investments_supports

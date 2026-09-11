@@ -122,7 +122,7 @@ uk-UA:
       remote_census_description: "Дозволяє налаштувати підключення до віддаленого перепису кожної установи"
       valuation_comment_notification: "Сповіщення щодо коментаря оцінки"
       valuation_comment_notification_description: "Надіслати електронний лист усім пов'язаним користувачам, окрім коментатора оцінки, до бюджетних інвестицій, коли буде створено новий коментар до оцінки"
-      graphql_api: "API API GraphQL"
+      api: "API API GraphQL"
       dashboard:
         notification_emails: "Електронні листи сповіщень інформаційної панелі"
         notification_emails_description: "Вмикає надсилання електронних листів із повідомленнями інформаційної панелі авторам пропозицій"

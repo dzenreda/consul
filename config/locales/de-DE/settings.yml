@@ -126,7 +126,7 @@ de:
       remote_census_description: "Ermöglicht die Konfiguration der Verbindung zum abgewählten Zensus jeder Institution"
       valuation_comment_notification: "Bewertung Kommentar Benachrichtigung"
       valuation_comment_notification_description: "Senden Sie eine E-Mail an alle verbundenen Benutzer*innen, wenn ein neuer Bewertungskommentar erstellt wird - mit Ausnahme des Bewertungskommentars für Budgetinvestitionen"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Dashboard-Benachrichtigungs-E-Mails"
         notification_emails_description: "Senden von Dashboard-Benachrichtigungs-E-Mails an die Autoren von Vorschlägen aktivieren."

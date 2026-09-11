@@ -126,7 +126,7 @@ ne:
       remote_census_description: "प्रत्येक संस्थाको टाढाको जनगणना जडान कन्फिगर गर्न अनुमति दिन्छ"
       valuation_comment_notification: "मूल्याङ्कन टिप्पणी सूचना"
       valuation_comment_notification_description: "नयाँ मूल्याङ्कन टिप्पणी सिर्जना हुँदा बजेट लगानीमा मूल्याङ्कन टिप्पणीकर्ता बाहेक सबै सम्बन्धित प्रयोगकर्ताहरूलाई इमेल पठाउनुहोस्।"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "ड्यासबोर्ड सूचना इमेलहरू"
         notification_emails_description: "प्रस्तावका लेखकहरूलाई ड्यासबोर्ड सूचना इमेलहरू पठाउन सक्षम गर्नुहोस्"

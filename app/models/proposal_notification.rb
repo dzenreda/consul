@@ -1,5 +1,4 @@
 class ProposalNotification < ApplicationRecord
-  include Graphqlable
   include Notifiable
   include Searchable
 

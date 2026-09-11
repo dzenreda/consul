@@ -130,7 +130,7 @@ hu:
       remote_census_description: "Lehetővé teszi az intézmények távoli népesség-nyilvántartásához való kapcsolat beállítását"
       valuation_comment_notification: "Értékelési hozzászólás értesítés"
       valuation_comment_notification_description: "E-mailt küld a beruházási projekthez kapcsolódó összes felhasználónak az értékelő hozzászóló kivételével, ha új értékelési hozzászólás jön létre"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "Irányítópult értesítő e-mailek"
         notification_emails_description: "Engedélyezi az irányítópult értesítő e-mailjeinek küldését a javaslatok szerzőinek"

@@ -8,7 +8,6 @@ module CommonActions
   include Cookies
   include Debates
   include Emails
-  include GraphQLAPI
   include Maps
   include Notifications
   include Polls

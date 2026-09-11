@@ -130,7 +130,7 @@ it:
       remote_census_description: "Consente di configurare la connessione al censimento remoto di ogni istituzione"
       valuation_comment_notification: "Notifica del commento valutativo"
       valuation_comment_notification_description: "Invia un'email a tutti gli utenti associati tranne l'utente del commento valutativo dell'investimento di budget quando è creato un nuovo commento valutativo"
-      graphql_api: "API di GraphQL"
+      api: "API di GraphQL"
       dashboard:
         notification_emails: "Email di notifica del pannello di controllo"
         notification_emails_description: "Abilita l'invio di email di notifica del pannello di controllo agli autori della proposta"

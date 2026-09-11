@@ -122,7 +122,7 @@ hr:
       remote_census_description: "Dopušta konfiguraciju veze za udaljeni cenzus svake institucije"
       valuation_comment_notification: "Obavijest o komentaru procjene"
       valuation_comment_notification_description: "Pošaljite e-mail poruku svim povezanim korisnicima osim komentatoru procjene za proračunsko ulaganje kada se pojavi novi komentar procjene"
-      graphql_api: "GraphQL API"
+      api: "GraphQL API"
       dashboard:
         notification_emails: "E-mail poruke s obavijestima o kontrolnoj ploči"
         notification_emails_description: "Omogući slanje e-mail poruka s obavijestima o kontrolnoj ploči autorima prijedloga"

@@ -1,0 +1,323 @@
+openapi: 3.0.3
+info:
+  title: CONSUL API
+  description: >
+    REST API for CONSUL Democracy. Authentication is JWT-based: `POST /api/session`
+    returns a token in the `Authorization` response header, which must then be sent
+    as `Authorization: Bearer <token>` on subsequent authenticated requests.
+  version: "1.0"
+servers:
+  - url: /api
+paths:
+  /session:
+    post:
+      summary: Log in
+      description: Authenticates with email/username and password. Reuses the same lockout rules as the web login.
+      tags: [Session]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [login, password]
+              properties:
+                login:
+                  type: string
+                  description: Email or username.
+                  example: manuela@consul.dev
+                password:
+                  type: string
+                  format: password
+      responses:
+        "201":
+          description: Authenticated. The token is returned in the `Authorization` header, not the body.
+          headers:
+            Authorization:
+              schema:
+                type: string
+              description: "`Bearer <jwt>`"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionUser"
+        "401":
+          description: Invalid login or password (or a locked/unconfirmed account).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Log out
+      description: Revokes the current token (added to the JWT denylist). It can no longer be used to authenticate afterwards.
+      tags: [Session]
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Logged out.
+        "401":
+          description: Missing, invalid or already-revoked token.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users:
+    post:
+      summary: Register
+      description: >
+        Creates a new, unconfirmed user. Devise sends the confirmation email automatically;
+        completing confirmation is only available through the web (there is no API
+        equivalent for that step).
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: "#/components/schemas/UserRegistration"
+      responses:
+        "201":
+          description: User created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionUser"
+        "422":
+          description: Validation errors (e.g. terms of service not accepted, password mismatch).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /proposals:
+    get:
+      summary: List proposals
+      tags: [Proposals]
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: A page of proposals.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Proposal"
+    post:
+      summary: Create a proposal
+      tags: [Proposals]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proposal:
+                  $ref: "#/components/schemas/ProposalInput"
+      responses:
+        "201":
+          description: Proposal created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+        "401":
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Validation errors.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /proposals/{id}:
+    get:
+      summary: Show a proposal
+      tags: [Proposals]
+      parameters:
+        - $ref: "#/components/parameters/ProposalId"
+      responses:
+        "200":
+          description: The proposal.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+        "404":
+          description: Not found.
+    patch:
+      summary: Update a proposal
+      description: >
+        Only editable by the proposal's author, and only while it hasn't received more
+        votes than `Setting["max_votes_for_proposal_edit"]` (same rule as the web).
+      tags: [Proposals]
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ProposalId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proposal:
+                  $ref: "#/components/schemas/ProposalInput"
+      responses:
+        "200":
+          description: Proposal updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+        "401":
+          description: Authentication required.
+        "403":
+          description: Not the proposal's author.
+        "422":
+          description: Validation errors.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
+  /proposals/{id}/vote:
+    post:
+      summary: Vote (support) a proposal
+      description: Registers a "yes" vote and follows the proposal for notifications, in a single transaction.
+      tags: [Proposals]
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ProposalId"
+      responses:
+        "200":
+          description: The proposal with the updated vote count.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+        "401":
+          description: Authentication required.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ProposalId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    SessionUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+    UserRegistration:
+      type: object
+      required: [username, email, password, password_confirmation, terms_of_service]
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        password_confirmation:
+          type: string
+          format: password
+        terms_of_service:
+          type: string
+          description: "Must be `\"1\"` (accepted) for the registration to succeed."
+          example: "1"
+    ProposalInput:
+      type: object
+      properties:
+        title:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+        video_url:
+          type: string
+        responsible_name:
+          type: string
+        tag_list:
+          type: string
+          description: Comma-separated tags.
+        terms_of_service:
+          type: string
+          example: "1"
+        geozone_id:
+          type: integer
+        map_location_attributes:
+          type: object
+          description: Omit, or send with all fields blank, to clear an existing map location.
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+            zoom:
+              type: integer
+    Proposal:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+          nullable: true
+        cached_votes_up:
+          type: integer
+        comments_count:
+          type: integer
+        public_created_at:
+          type: string
+          format: date-time
+          description: Truncated to the hour, for privacy.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
