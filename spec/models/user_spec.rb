@@ -984,6 +984,40 @@ describe User do
     end
   end
 
+  describe ".authenticate" do
+    it "returns the user for valid credentials" do
+      user = create(:user)
+
+      expect(User.authenticate(user.email, "Judgmentday1")).to eq user
+    end
+
+    it "allows authenticating by username" do
+      user = create(:user)
+
+      expect(User.authenticate(user.username, "Judgmentday1")).to eq user
+    end
+
+    it "returns nil for an invalid password" do
+      user = create(:user)
+
+      expect(User.authenticate(user.email, "wrong password")).to be(nil)
+    end
+
+    it "returns nil for a non-existent login" do
+      expect(User.authenticate("nobody@consul.dev", "wrong password")).to be(nil)
+    end
+
+    it "returns nil and locks the account after too many failed attempts" do
+      user = create(:user)
+
+      (User.maximum_attempts + 1).times do
+        User.authenticate(user.email, "wrong password")
+      end
+
+      expect(user.reload).to be_access_locked
+    end
+  end
+
   describe "#block" do
     it "hides legislation proposals created by the user" do
       user = create(:user)

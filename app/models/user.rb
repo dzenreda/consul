@@ -428,6 +428,20 @@ class User < ApplicationRecord
       where(conditions.to_hash).find_by(["username = ?", login])
   end
 
+  # Authenticates a user outside of the Warden/session pipeline that the web
+  # login form goes through (e.g. for an API client). Reuses Devise's own
+  # `valid_for_authentication?` so lockable's failed-attempts counting and
+  # confirmable's checks are applied exactly as they are for the web login.
+  #
+  # Deliberately has no side effects. A caller that wants trackable's
+  # sign_in_count/last_sign_in_at parity with the web login (but without
+  # Warden's session cookie, e.g. a JWT-based API) should call
+  # `user.update_tracked_fields!(request)` itself after a successful call.
+  def self.authenticate(login, password)
+    user = find_for_database_authentication(login: login)
+    user if user&.valid_for_authentication? { user.valid_password?(password) }
+  end
+
   def self.find_by_manager_login(manager_login)
     find_by(id: manager_login.split("_").last)
   end
