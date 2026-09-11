@@ -428,6 +428,19 @@ class User < ApplicationRecord
       where(conditions.to_hash).find_by(["username = ?", login])
   end
 
+  # Creates a new user outside of the web sign-up form, e.g. for an API
+  # client. Confirmable still sends the confirmation email automatically
+  # on create (see #confirmation_required?) and that link is only ever
+  # meant to be opened in a browser, so Users::ConfirmationsController
+  # stays the only way to complete it - no API equivalent is needed.
+  #
+  # Deliberately excludes web-only concerns: invisible_captcha and the
+  # `registering_from_web` flag are set by Users::RegistrationsController
+  # itself, not by this method.
+  def self.register(attributes)
+    create(attributes)
+  end
+
   # Authenticates a user outside of the Warden/session pipeline that the web
   # login form goes through (e.g. for an API client). Reuses Devise's own
   # `valid_for_authentication?` so lockable's failed-attempts counting and

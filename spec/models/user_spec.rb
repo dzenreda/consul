@@ -984,6 +984,34 @@ describe User do
     end
   end
 
+  describe ".register" do
+    it "creates an unconfirmed user with a confirmation token" do
+      user = User.register(username: "Manuela", email: "manuela@consul.dev",
+                           password: "Judgmentday1", password_confirmation: "Judgmentday1",
+                           terms_of_service: "1")
+
+      expect(user).to be_persisted
+      expect(user).not_to be_confirmed
+      expect(user.confirmation_token).to be_present
+    end
+
+    it "is invalid without accepting the terms of service" do
+      user = User.register(username: "Manuela", email: "manuela@consul.dev",
+                           password: "Judgmentday1", password_confirmation: "Judgmentday1")
+
+      expect(user).not_to be_persisted
+      expect(user.errors[:terms_of_service]).to be_present
+    end
+
+    it "does not mark the user as registering from the web" do
+      user = User.register(username: "Manuela", email: "manuela@consul.dev",
+                           password: "Judgmentday1", password_confirmation: "Judgmentday1",
+                           terms_of_service: "1")
+
+      expect(user.registering_from_web).to be false
+    end
+  end
+
   describe ".authenticate" do
     it "returns the user for valid credentials" do
       user = create(:user)
