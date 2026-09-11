@@ -20,7 +20,6 @@ class ProposalsController < ApplicationController
   has_orders %w[most_voted newest oldest], only: :show
 
   load_and_authorize_resource
-  before_action :destroy_map_location_association, only: :update
 
   helper_method :resource_model, :resource_name
   respond_to :html, :js
@@ -35,8 +34,8 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    @proposal = Proposal.new(proposal_params.merge(author: current_user))
-    if @proposal.save
+    @proposal = Proposal.create_for(current_user, proposal_params)
+    if @proposal.persisted?
       redirect_to created_proposal_path(@proposal), notice: I18n.t("flash.actions.create.proposal")
     else
       render :new
@@ -44,6 +43,15 @@ class ProposalsController < ApplicationController
   end
 
   def created; end
+
+  def update
+    if @proposal.update_with_map_location(proposal_params)
+      redirect_to @proposal, notice: t("flash.actions.update.proposal")
+    else
+      load_geozones
+      render :edit
+    end
+  end
 
   def index_customization
     discard_draft
@@ -55,8 +63,7 @@ class ProposalsController < ApplicationController
   end
 
   def vote
-    @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
-    @proposal.register_vote(current_user, "yes")
+    @follow = @proposal.vote_and_follow!(current_user)
   end
 
   def retire
@@ -169,14 +176,6 @@ class ProposalsController < ApplicationController
 
     def remove_archived_from_order_links
       @valid_orders.delete("archival_date")
-    end
-
-    def destroy_map_location_association
-      map_location_params = proposal_params[:map_location_attributes]
-
-      if map_location_params.blank? || map_location_params.values.all?(&:blank?)
-        @proposal.map_location = nil
-      end
     end
 
     def proposals_recommendations

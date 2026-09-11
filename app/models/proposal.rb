@@ -103,6 +103,10 @@ class Proposal < ApplicationRecord
     published_at.nil?
   end
 
+  def self.create_for(author, attributes)
+    create(attributes.merge(author: author))
+  end
+
   def self.recommendations(user)
     tagged_with(user.interests, any: true)
       .where.not(author_id: user.id)
@@ -185,6 +189,25 @@ class Proposal < ApplicationRecord
     if votable_by?(user) && !archived?
       user.with_lock { vote_by(voter: user, vote: vote_value) }
     end
+  end
+
+  def vote_and_follow!(user)
+    transaction do
+      follow = Follow.find_or_create_by!(user: user, followable: self)
+      register_vote(user, "yes")
+      follow
+    end
+  end
+
+  def update_with_map_location(attributes)
+    attributes = attributes.to_h.with_indifferent_access
+    map_location_params = attributes[:map_location_attributes]
+
+    if map_location_params.blank? || map_location_params.values.all?(&:blank?)
+      self.map_location = nil
+    end
+
+    update(attributes)
   end
 
   def code
