@@ -25,6 +25,11 @@ class Proposal < ApplicationRecord
 
   RETIRE_OPTIONS = %w[duplicated started unfeasible done other].freeze
 
+  # Not persisted: set by the controller before #save so the after_create
+  # callback below can authenticate against the chat server. Models don't
+  # have access to the request's `session`.
+  attr_accessor :chat_auth_token
+
   translates :title, touch: true
   translates :description, touch: true
   translates :summary, touch: true
@@ -64,6 +69,8 @@ class Proposal < ApplicationRecord
   before_save :calculate_hot_score, :calculate_confidence_score
 
   after_commit :send_new_actions_notification_on_create, on: :create
+  
+  after_create :create_chat_room
 
   scope :for_render,               -> { includes(:tags) }
   scope :sort_by_hot_score,        -> { reorder(hot_score: :desc) }
@@ -273,5 +280,16 @@ class Proposal < ApplicationRecord
       if author&.document_number?
         self.responsible_name = author.document_number
       end
+    end
+
+    def create_chat_room
+      Chat::Client.create_room(
+        id: Chat::Client.proposal_room_id(id),
+        title: "Proposal: #{id}",
+        summary: "Summary",
+        token: chat_auth_token
+      )
+    rescue Chat::Error => e
+      Rails.logger.error("No se pudo crear la sala de chat para la propuesta #{id}: #{e.message}")
     end
 end

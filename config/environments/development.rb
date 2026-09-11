@@ -33,6 +33,7 @@ Rails.application.configure do
   # Allow accessing the application through a domain so subdomains can be used
   config.hosts << "lvh.me"
   config.hosts << /.*\.lvh\.me/
+  config.hosts << "fe5e-79-116-3-174.ngrok-free.app"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

@@ -1,4 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
+  def create
+    super do |user|
+      Chat::Client.login_user(username: user.email, password: params[:user][:password], session: session)
+    end
+  end
   def destroy
     @stored_location = stored_location_for(:user)
     super

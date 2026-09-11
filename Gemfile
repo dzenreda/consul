@@ -67,6 +67,7 @@ gem "view_component", "~> 4.12.0"
 gem "whenever", "~> 1.1.2", require: false
 gem "wicked_pdf", "~> 2.8.2"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+gem "chat", path: "/Users/diegocalvo/Desktop/Enreda/CONSUL/chat/gem"
 
 group :development, :test do
   gem "debug", "~> 1.11.0"

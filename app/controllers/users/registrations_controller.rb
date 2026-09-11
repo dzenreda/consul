@@ -14,7 +14,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.registering_from_web = true
 
     if resource.valid?
-      super
+      super do |user|
+        next unless user.persisted?
+
+        begin
+          Chat::Client.register_user(username: user.email, password: params[:user][:password])
+        rescue Chat::UsernameTakenError, Chat::ServerError, Chat::ConnectionError => e
+          Rails.logger.error("No se pudo registrar #{user.email} en el chat server: #{e.message}")
+        end
+      end
     else
       render :new
     end

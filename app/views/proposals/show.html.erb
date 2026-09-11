@@ -69,6 +69,16 @@
 
           <%= render "proposals/support_status", proposal: @proposal %>
 
+          <%= javascript_include_tag "chat/room_controller" %>
+          <%= stylesheet_link_tag "chat/room_component" %>
+          <%= render Chat::RoomComponent.new(
+            websocket_url: "wss://22a1-79-116-3-174.ngrok-free.app/ws",
+            room: Chat::Client.proposal_room_id(@proposal.id),
+            height: "400px",
+            auth_token: session[:chat_auth_token],
+            username: current_user&.email
+          ) %>
+
           <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
 
           <% if current_user %>

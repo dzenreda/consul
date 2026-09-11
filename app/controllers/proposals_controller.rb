@@ -36,6 +36,7 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
+    @proposal.chat_auth_token = session[:chat_auth_token]
     if @proposal.save
       redirect_to created_proposal_path(@proposal), notice: I18n.t("flash.actions.create.proposal")
     else
