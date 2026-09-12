@@ -43,6 +43,21 @@ describe Api::ProposalsController do
       expect(response).to have_http_status(:created)
       expect(Proposal.last.author).to eq user
     end
+
+    it "publishes the proposal" do
+      user = create(:user, :level_two)
+      sign_in(user)
+
+      post :create, params: {
+        proposal: {
+          title: "A new proposal",
+          summary: "Proposal summary",
+          terms_of_service: "1"
+        }
+      }
+
+      expect(Proposal.last).to be_published
+    end
   end
 
   describe "PATCH update" do

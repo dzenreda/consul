@@ -18,6 +18,7 @@ module Api
 
     def create
       @proposal = Proposal.create_for(current_user, proposal_params)
+      @proposal.publish if @proposal.persisted?
       render_proposal(@proposal, status: :created)
     end
 

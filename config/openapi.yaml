@@ -120,6 +120,9 @@ paths:
                   $ref: "#/components/schemas/Proposal"
     post:
       summary: Create a proposal
+      description: >
+        Unlike the web wizard (draft → preview → publish), the proposal is published
+        immediately: `published_at` is set on creation.
       tags: [Proposals]
       security:
         - bearerAuth: []
