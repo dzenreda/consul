@@ -226,7 +226,7 @@ paths:
         current user isn't one, or if comments are closed for it (neither restriction
         currently applies to proposals, but the check is shared with other commentable
         types such as legislation questions).
-      tags: [Comments]
+      tags: [Proposals]
       security:
         - bearerAuth: []
       parameters:
