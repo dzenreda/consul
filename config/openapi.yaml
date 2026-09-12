@@ -36,7 +36,12 @@ paths:
             Authorization:
               schema:
                 type: string
-              description: "`Bearer <jwt>`"
+              description: >
+                `Bearer <jwt>`. Issued by the `devise-jwt` / `warden-jwt_auth` gems
+                (see `jwt.dispatch_requests` in `config/initializers/devise.rb`), whose
+                Warden middleware dispatches the token via this response header by
+                default rather than in the JSON body — the app's session controller
+                never touches the token itself.
           content:
             application/json:
               schema:
